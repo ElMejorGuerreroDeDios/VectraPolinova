@@ -6,17 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>609</width>
-    <height>585</height>
+    <width>685</width>
+    <height>716</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(0, 0, 0);</string>
    </property>
@@ -76,6 +73,9 @@ background-color: rgba(43, 43, 43,0)
 }
 QPushButton:hover{
 	background-color:rgb(101, 76, 122);
+}
+QPushButton:pressed{
+background-color: rgb(170, 85, 255);
 }
 </string>
          </property>
@@ -145,7 +145,7 @@ QPushButton:hover{
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images/resources.qrc">
+             <iconset resource="../images/resources.qrc">
               <normaloff>:/images/minimize.png</normaloff>:/images/minimize.png</iconset>
             </property>
             <property name="iconSize">
@@ -177,7 +177,7 @@ QPushButton:hover{
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images/resources.qrc">
+             <iconset resource="../images/resources.qrc">
               <normaloff>:/images/minimize_2.png</normaloff>:/images/minimize_2.png</iconset>
             </property>
             <property name="iconSize">
@@ -209,7 +209,7 @@ QPushButton:hover{
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images/resources.qrc">
+             <iconset resource="../images/resources.qrc">
               <normaloff>:/images/maximize.png</normaloff>:/images/maximize.png</iconset>
             </property>
             <property name="iconSize">
@@ -241,7 +241,7 @@ QPushButton:hover{
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images/resources.qrc">
+             <iconset resource="../images/resources.qrc">
               <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
             </property>
             <property name="iconSize">
@@ -332,6 +332,9 @@ background-color: rgb(59, 0, 89);
 }
 QPushButton:hover{
 background-color: rgb(119, 0, 179);
+}
+QPushButton:pressed{
+background-color: rgb(170, 85, 255);
 }
 </string>
               </property>
@@ -661,7 +664,7 @@ background-color: rgb(119, 0, 179);
   </widget>
  </widget>
  <resources>
-  <include location="images/resources.qrc"/>
+  <include location="../images/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
