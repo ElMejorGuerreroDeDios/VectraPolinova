@@ -332,13 +332,13 @@ color:rgb(232, 212, 255);</string>
                   </size>
                  </property>
                  <property name="inputMethodHints">
-                  <set>Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
+                  <set>Qt::ImhNone</set>
                  </property>
                  <property name="maxLength">
                   <number>50</number>
                  </property>
                  <property name="echoMode">
-                  <enum>QLineEdit::PasswordEchoOnEdit</enum>
+                  <enum>QLineEdit::Normal</enum>
                  </property>
                  <property name="placeholderText">
                   <string>Nombre de Usuario</string>
