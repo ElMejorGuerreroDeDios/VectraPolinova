@@ -1,9 +1,26 @@
-from PyQt5.QtWidgets import QMainWindow,QApplication, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout
 from PyQt5.uic import loadUi
-from PyQt5.QtGui import QPixmap, QIcon, QGuiApplication
+from PyQt5.QtGui import QMovie, QPixmap, QIcon
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt
 import sys
+
+# Cargar examples.ui
+class GifWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Ventana GIF")
+        self.label = QLabel(self)
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+        self.movie = None
+
+    def setGif(self, ruta):
+        self.movie = QMovie(ruta)
+        self.label.setMovie(self.movie)
+        self.movie.start()
+
 
 #cargar diseño
 class Login(QMainWindow):
@@ -16,6 +33,11 @@ class Login(QMainWindow):
         self.normal_bt.setIcon(QIcon("images/minimize_2.png"))
         self.maximize_bt.setIcon(QIcon("images/maximize.png"))
         self.close_bt.setIcon(QIcon("images/exit.png"))
+
+        self.label.setPixmap(QPixmap("exercises/lagartijas.jpg"))
+        self.label_2.setPixmap(QPixmap("exercises/sentadillas.jpg"))
+        self.label_3.setPixmap(QPixmap("exercises/plancha.jpg"))
+        self.label_4.setPixmap(QPixmap("exercises/zancadas.jpg"))
 
 #Boton Max-Min
         self.normal_bt.hide()
@@ -32,14 +54,27 @@ class Login(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
 #Modificar tamaño
-        self.gripSize = 10
+        self.gripSize = 10 
         self.grip = QtWidgets.QSizeGrip(self)
         self.grip.resize(self.gripSize, self.gripSize)
         #mover ventana
         self.up_frame.mouseMoveEvent = self.mover_ventana
 
+        # Crear la ventana de examples
+        self.gifWindow = GifWindow()
+
+        # conectar botones de select a examples
+        self.exercise_bt_1.clicked.connect(lambda: self.mostrarGif("exercises/lagartijas.gif"))
+        self.exercise_bt_2.clicked.connect(lambda: self.mostrarGif("exercises/sentadilla.gif"))
+        self.exercise_bt_3.clicked.connect(lambda: self.mostrarGif("exercises/plancha.gif"))
+        self.exercise_bt_4.clicked.connect(lambda: self.mostrarGif("exercises/zancada.gif"))
+
+    def mostrarGif(self, ruta):
+        self.gifWindow.setGif(ruta)
+        self.gifWindow.show()
+
     def control_normal_bt(self):
-        self.showNormal()
+        self.showNormal() 
         self.normal_bt.hide()
         self.maximize_bt.show()
          

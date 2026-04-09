@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="Exercises">
+    <file>sentadillas.jpg</file>
+    <file>zancadas.jpg</file>
+    <file>plancha.jpg</file>
+    <file>lagartijas.jpg</file>
+  </qresource>
+</RCC>
