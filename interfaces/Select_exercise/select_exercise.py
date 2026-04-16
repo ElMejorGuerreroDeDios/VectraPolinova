@@ -8,17 +8,12 @@ import sys
 # Cargar examples.ui
 class Examples(QMainWindow):
     def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Ventana GIF")
-        self.label = QLabel(self)
-        layout = QVBoxLayout()
-        layout.addWidget(self.label)
-        self.setLayout(layout)
-        self.movie = None
+        super(Examples, self).__init__()
+        loadUi('examples.ui', self)
 
     def setGif(self, ruta):
         self.movie = QMovie(ruta)
-        self.label.setMovie(self.movie)
+        self.example.setMovie(self.movie)
         self.movie.start()
 
 
@@ -27,7 +22,8 @@ class SelectExercise(QMainWindow):
     def __init__(self):
         super(SelectExercise, self).__init__()
         loadUi('select_exercise.ui', self)
-       
+        
+
 #Mostrar logos de ventana 
         self.minimize_bt.setIcon(QIcon("images/minimize.png"))
         self.normal_bt.setIcon(QIcon("images/minimize_2.png"))

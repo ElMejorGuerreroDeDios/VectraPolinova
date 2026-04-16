@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
-    <height>554</height>
+    <width>706</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -326,6 +326,59 @@ border: 0px solid black;</string>
            </spacer>
           </item>
           <item row="3" column="1">
+           <widget class="QFrame" name="frame_3">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>80</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+border-radius: 10px;
+font: 15pt &quot;Arial&quot;;
+color: white;
+border: 2px solid black;
+background-color: rgb(59, 0, 89);
+}
+QPushButton:hover{
+background-color: rgb(119, 0, 179);
+}
+QPushButton:pressed{
+background-color: rgb(170, 85, 255);
+}
+</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QPushButton" name="start_bt">
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;MS Shell Dlg 2&quot;;
+QPushButton{
+border-radius: 10px;
+font: 15pt &quot;Arial&quot;;
+color: white;
+border: 2px solid black;
+background-color: rgb(59, 0, 89);
+}
+</string>
+               </property>
+               <property name="text">
+                <string>Comenzar</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="4" column="1">
            <spacer name="verticalSpacer_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>

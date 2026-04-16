@@ -10,24 +10,27 @@ class Examples(QMainWindow):
     def __init__(self):
         super(Examples, self).__init__()
         loadUi('examples.ui', self)
+
+        print(self.minimize_bt, self.normal_bt, self.maximize_bt, self.close_bt, self.up_frame)
+
        
 #Mostrar logos de ventana 
         self.minimize_bt.setIcon(QIcon("images/minimize.png"))
         self.normal_bt.setIcon(QIcon("images/minimize_2.png"))
         self.maximize_bt.setIcon(QIcon("images/maximize.png"))
         self.close_bt.setIcon(QIcon("images/exit.png"))
-#Cargar Gifs (ejemplos)
+#Cargar Gifs 
     def setGif(self, ruta):
         self.movie = QMovie(ruta)
-        self.label.setMovie(self.movie)
+        self.example.setMovie(self.movie)
         # Ajustar el GIF al tamaño del QLabel
-        self.movie.setScaledSize(self.label.size())
+        self.movie.setScaledSize(self.example.size())
         self.movie.start()
 
 
 #Boton Max-Min
         self.normal_bt.hide()
-        self.click_Posicion = None
+        self.click_Posicion = None 
         self.minimize_bt.clicked.connect(lambda: self.showMinimized())
         self.normal_bt.clicked.connect(self.control_normal_bt)
         self.maximize_bt.clicked.connect(self.control_maximize_bt)
