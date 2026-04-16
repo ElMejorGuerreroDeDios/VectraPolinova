@@ -6,9 +6,9 @@ from PyQt5.QtCore import Qt, QSize
 import sys
 
 #cargar diseño
-class Login(QMainWindow):
+class Examples(QMainWindow):
     def __init__(self):
-        super(Login, self).__init__()
+        super(Examples, self).__init__()
         loadUi('examples.ui', self)
        
 #Mostrar logos de ventana 
@@ -80,6 +80,6 @@ class Login(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_app = Login()
+    my_app = Examples()
     my_app.show()
     sys.exit(app.exec_())
