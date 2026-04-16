@@ -6,7 +6,7 @@ from PyQt5.QtCore import Qt
 import sys
 
 # Cargar examples.ui
-class GifWindow(QWidget):
+class Examples(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Ventana GIF")
@@ -23,9 +23,9 @@ class GifWindow(QWidget):
 
 
 #cargar diseño
-class Login(QMainWindow):
+class SelectExercise(QMainWindow):
     def __init__(self):
-        super(Login, self).__init__()
+        super(SelectExercise, self).__init__()
         loadUi('select_exercise.ui', self)
        
 #Mostrar logos de ventana 
@@ -61,17 +61,17 @@ class Login(QMainWindow):
         self.up_frame.mouseMoveEvent = self.mover_ventana
 
         # Crear la ventana de examples
-        self.gifWindow = GifWindow()
+        self.example = Examples()
 
         # conectar botones de select a examples
-        self.exercise_bt_1.clicked.connect(lambda: self.mostrarGif("exercises/lagartijas.gif"))
-        self.exercise_bt_2.clicked.connect(lambda: self.mostrarGif("exercises/sentadilla.gif"))
-        self.exercise_bt_3.clicked.connect(lambda: self.mostrarGif("exercises/plancha.gif"))
-        self.exercise_bt_4.clicked.connect(lambda: self.mostrarGif("exercises/zancada.gif"))
+        self.exercise_bt_1.clicked.connect(lambda: self.showExample("exercises/lagartijas.gif"))
+        self.exercise_bt_2.clicked.connect(lambda: self.showExample("exercises/sentadilla.gif"))
+        self.exercise_bt_3.clicked.connect(lambda: self.showExample("exercises/plancha.gif"))
+        self.exercise_bt_4.clicked.connect(lambda: self.showExample("exercises/zancada.gif"))
 
-    def mostrarGif(self, ruta):
-        self.gifWindow.setGif(ruta)
-        self.gifWindow.show()
+    def showExample(self, ruta):
+        self.example.setGif(ruta)
+        self.example.show()
 
     def control_normal_bt(self):
         self.showNormal() 
@@ -107,6 +107,6 @@ class Login(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_app = Login()
+    my_app = SelectExercise()
     my_app.show()
     sys.exit(app.exec_())

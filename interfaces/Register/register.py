@@ -6,9 +6,9 @@ from PyQt5.QtCore import Qt, QSize
 import sys
 
 #cargar diseño
-class Login(QMainWindow):
+class Register(QMainWindow):
     def __init__(self):
-        super(Login, self).__init__()
+        super(Register, self).__init__()
         loadUi('register.ui', self)
         #ocultar contraseña(ininicio)
         self.password.setEchoMode(QLineEdit.Password)
@@ -82,6 +82,6 @@ class Login(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_app = Login()
+    my_app = Register()
     my_app.show()
     sys.exit(app.exec_())
