@@ -63,7 +63,7 @@ class Login(QMainWindow):
     def resizeEvent(self, event):
         rect = self.rect()
         self.grip.move(rect.right() - self.gripSize, rect.bottom() - self.gripSize)
-#mover ventana
+#mover ventana 
     def mousePressEvent(self, event):
         self.click_Posicion = event.globalPos()
 
