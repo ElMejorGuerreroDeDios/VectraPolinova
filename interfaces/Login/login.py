@@ -5,6 +5,15 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QSize
 import sys
 
+class Register(QMainWindow):
+    def __init__(self):
+        super(Register, self).__init__()
+        loadUi('register.ui', self)
+        #ocultar contraseña(ininicio)
+        self.password.setEchoMode(QLineEdit.Password)
+        print("hola w")
+
+#cargar diseño
 class Login(QMainWindow):
     def __init__(self):
         super(Login, self).__init__()
@@ -37,6 +46,8 @@ class Login(QMainWindow):
         QLineEdit.Normal if checked else QLineEdit.Password
     )
 )
+        self.register_button.clicked.connect(self.open_register_window)
+
 #Elimimnar Barra de titulo
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowOpacity(1)
@@ -81,6 +92,14 @@ class Login(QMainWindow):
             self.showNormal()
             self.minimize_bt_2.hide()
             self.maximize_bt.show()
+
+        
+
+    def open_register_window(self):
+        self.register_window = Register()   # crea instancia de la ventana de registro
+        self.register_window.show()         # muestra la ventana
+        self.close()                        # opcional: cierra la ventana de login
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
