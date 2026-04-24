@@ -520,7 +520,7 @@ color:rgb(232, 212, 255);</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="login_bt">
                  <property name="text">
                   <string>Iniciar Sesión</string>
                  </property>

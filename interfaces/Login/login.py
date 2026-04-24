@@ -5,13 +5,13 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QSize
 import sys
 
+#cargar ui de register
 class Register(QMainWindow):
     def __init__(self):
         super(Register, self).__init__()
         loadUi('register.ui', self)
         #ocultar contraseña(ininicio)
         self.password.setEchoMode(QLineEdit.Password)
-        print("hola w")
 
 #cargar diseño
 class Login(QMainWindow):
@@ -46,6 +46,7 @@ class Login(QMainWindow):
         QLineEdit.Normal if checked else QLineEdit.Password
     )
 )
+        #Abrir ventana de registro al presionar "Registrate"
         self.register_button.clicked.connect(self.open_register_window)
 
 #Elimimnar Barra de titulo
