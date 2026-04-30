@@ -1,0 +1,15 @@
+No borrar
+
+Descargar librerias:
+
+Estoy dejando un archivo .txt con la version de las librerias que se deben de usar para que a ustedes les funcione con python 3.9.0
+Antes de actualizar el pip a la ultima version  26.0.1 para descargar ejecutar lo demas
+Para descargar las librerias es en la terminal con el codigo:
+
+pip install -r librerias.txt
+
+si quieren agregar librerias es con:
+pip freeze > (nombre del archivo .txt)
+
+POST: Si marca dos errores en el main en las lineas 19 y 20 primero ejecuten el codigo si funciona es error del visual no del codigo
+2do POST: Recomiendo hacer un entorno virtual para el tema de las versiones de las librerias para evitar conflicto con las mismas.

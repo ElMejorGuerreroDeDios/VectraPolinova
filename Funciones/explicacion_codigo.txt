@@ -1,0 +1,231 @@
+EXPLICACIÓN DETALLADA DEL CÓDIGO
+
+ARCHIVO: utils.py
+=================
+
+1. IMPORTACIÓN DE NUMPY
+   - `import numpy as np`
+   - Numpy se usa para cálculos numéricos con vectores y matrices.
+
+2. FUNCIÓN `calcular_angulo(a, b, c)`
+   - Propósito: calcular el ángulo formado en el punto B por los puntos A, B y C.
+   - Parámetros:
+     * `a`, `b`, `c`: listas de dos valores `[x, y]` que representan coordenadas en píxeles.
+   - Pasos internos:
+     a) Convierte los puntos `a`, `b`, `c` en arrays de numpy.
+     b) Calcula el vector `ba` como `a - b`, es decir, de B hacia A.
+     c) Calcula el vector `bc` como `c - b`, es decir, de B hacia C.
+     d) Calcula el coseno del ángulo usando la fórmula del producto escalar:
+        `coseno = (ba · bc) / (|ba| * |bc|)`.
+     e) Añade `1e-6` en el denominador para evitar división por cero.
+     f) Usa `np.clip(coseno, -1.0, 1.0)` para mantener el valor dentro del rango válido.
+     g) Convierte el resultado a grados con `np.degrees(np.arccos(coseno))`.
+     h) Devuelve el ángulo redondeado a un decimal con `round(angulo, 1)`.
+   - Uso típico: medir ángulos de articulaciones como codo, rodilla o cadera.
+
+3. FUNCIÓN `obtener_punto(landmarks, indice, w, h)`
+   - Propósito: obtener las coordenadas en píxeles de un landmark de MediaPipe.
+   - Parámetros:
+     * `landmarks`: lista de puntos detectados por MediaPipe.
+     * `indice`: número del landmark a extraer.
+     * `w`: ancho del frame de la cámara.
+     * `h`: alto del frame de la cámara.
+   - Pasos internos:
+     a) Toma el landmark en la posición `indice`.
+     b) Multiplica `lm.x` por `w` y `lm.y` por `h`.
+     c) Convierte los valores a enteros.
+     d) Devuelve una lista `[x, y]`.
+   - Comentario: MediaPipe entrega coordenadas normalizadas (0..1), por eso se multiplica por el ancho y alto.
+   - Índices importantes:
+     * 11 = hombro izquierdo
+     * 12 = hombro derecho
+     * 13 = codo izquierdo
+     * 14 = codo derecho
+     * 15 = muñeca izquierda
+     * 16 = muñeca derecha
+     * 23 = cadera izquierda
+     * 24 = cadera derecha
+     * 25 = rodilla izquierda
+     * 26 = rodilla derecha
+     * 27 = tobillo izquierdo
+     * 28 = tobillo derecho
+
+4. FUNCIÓN `evaluar_postura(angulo, minimo, maximo)`
+   - Propósito: determinar si un ángulo está dentro del rango correcto.
+   - Parámetros:
+     * `angulo`: valor calculado en grados.
+     * `minimo`: límite inferior del rango correcto.
+     * `maximo`: límite superior del rango correcto.
+   - Lógica:
+     * Si `minimo <= angulo <= maximo`, devuelve "CORRECTA".
+     * Si no, devuelve "INCORRECTA".
+   - Uso típico: evaluar si la postura del usuario en un ejercicio es adecuada.
+
+
+ARCHIVO: main.py
+=================
+
+1. COMENTARIO INICIAL
+   - El encabezado explica que el programa detecta posturas con MediaPipe y evalúa ejercicios de calistenia.
+   - También menciona los controles de teclado: 1, 2, 3, 4 y Q.
+
+2. IMPORTACIONES
+   - `import cv2`: biblioteca OpenCV para captura de cámara y dibujo en la imagen.
+   - `import mediapipe as mp`: biblioteca MediaPipe para detección de pose humana.
+   - `from utils import calcular_angulo, obtener_punto, evaluar_postura`: importa las funciones auxiliares definidas en `utils.py`.
+
+3. CONFIGURACIÓN DE MEDIAPIPE
+   - `mp_pose = mp.solutions.pose`: inicializa la solución de pose.
+   - `mp_dibujo = mp.solutions.drawing_utils`: utilidades de dibujo de MediaPipe.
+
+4. DEFINICIÓN DE RANGOS DE EJERCICIOS
+   - Diccionario `EJERCICIOS` con cuatro ejercicios: Sentadilla, Lagartija, Plancha y Zancada.
+   - Cada ejercicio define qué ángulos se deben evaluar y sus rangos mínimos y máximos.
+   - Ejemplo: para Sentadilla, la rodilla debe quedar entre 80 y 100 grados.
+
+5. EJERCICIO ACTUAL
+   - `ejercicio_actual = "Sentadilla"`: valor inicial que se usará al arrancar.
+   - Luego el usuario puede cambiarlo con las teclas 1-4.
+
+6. COLORES
+   - Define varios colores en formato BGR para dibujar con OpenCV:
+     * `COLOR_VERDE`: color de postura correcta.
+     * `COLOR_ROJO`: color de postura incorrecta.
+     * `COLOR_BLANCO`, `COLOR_GRIS`, `COLOR_AZUL`.
+
+7. FUNCIONES DE DIBUJO
+
+   - `dibujar_etiqueta(frame, texto, pos, color_fondo, color_texto=COLOR_BLANCO)`
+     * Dibuja un rectángulo con fondo color y texto encima.
+     * Calcula el tamaño del texto con `cv2.getTextSize`.
+     * Dibuja el rectángulo y luego el texto.
+
+   - `dibujar_angulo_en_punto(frame, angulo, punto, color)`
+     * Pinta el valor del ángulo cerca de la articulación.
+     * Usa `cv2.putText` con el color determinado.
+
+   - `dibujar_panel(frame, estados, ejercicio)`
+     * Dibuja un panel en la esquina superior izquierda.
+     * Muestra el nombre del ejercicio.
+     * Muestra cada ángulo y si es correcto o incorrecto.
+     * Usa `dibujar_etiqueta` para cada línea.
+
+   - `dibujar_instrucciones(frame, h)`
+     * Muestra las teclas disponibles en la esquina inferior izquierda.
+     * Las instrucciones siempre se dibujan en cada frame.
+
+8. FUNCIONES DE PROCESAMIENTO POR EJERCICIO
+   - Cada función recibe `frame`, `landmarks`, `w`, `h`.
+   - Usa `obtener_punto` para tomar las coordenadas de las articulaciones necesarias.
+   - Usa `calcular_angulo` para obtener los ángulos relevantes.
+   - Usa `evaluar_postura` para decidir si cada ángulo está bien.
+   - Dibuja los ángulos en la imagen con color verde o rojo.
+   - Devuelve una lista de estados y un booleano de si todo está correcto.
+
+   Detalle por ejercicio:
+
+   a) `procesar_sentadilla(...)`
+      - Evalúa rodilla y cadera.
+      - Puntos usados:
+        * cadera izquierda (23)
+        * rodilla izquierda (25)
+        * tobillo izquierdo (27)
+        * hombro izquierdo (11)
+      - Calcula:
+        * `ang_rodilla = calcular_angulo(cadera, rodilla, tobillo)`
+        * `ang_cadera = calcular_angulo(hombro, cadera, rodilla)`
+      - Un resultado es "CORRECTA" si ambos ángulos están en rango.
+
+   b) `procesar_lagartija(...)`
+      - Evalúa codo y hombro.
+      - Puntos usados:
+        * hombro izquierdo (11)
+        * codo izquierdo (13)
+        * muñeca izquierda (15)
+        * cadera izquierda (23)
+      - Calcula:
+        * `ang_codo = calcular_angulo(hombro, codo, muneca)`
+        * `ang_hombro = calcular_angulo(cadera, hombro, codo)`
+
+   c) `procesar_plancha(...)`
+      - Evalúa cadera y tobillo.
+      - Puntos usados:
+        * hombro izquierdo (11)
+        * cadera izquierda (23)
+        * rodilla izquierda (25)
+        * tobillo izquierdo (27)
+      - Calcula:
+        * `ang_cadera = calcular_angulo(hombro, cadera, rodilla)`
+        * `ang_tobillo = calcular_angulo(rodilla, tobillo, tobillo)`
+      - Observación: el cálculo del ángulo de tobillo usa el mismo punto dos veces (`tobillo`) para C y B, lo que produce un vector de longitud cero y puede ser incorrecto.
+
+   d) `procesar_zancada(...)`
+      - Evalúa rodilla delantera, rodilla trasera y cadera.
+      - Puntos usados:
+        * pierna izquierda: cadera 23, rodilla 25, tobillo 27
+        * pierna derecha: cadera 24, rodilla 26, tobillo 28
+        * hombro izquierdo: 11
+      - Calcula:
+        * `ang_rod_del = calcular_angulo(cadera_izq, rodilla_izq, tobillo_izq)`
+        * `ang_rod_tra = calcular_angulo(cadera_der, rodilla_der, tobillo_der)`
+        * `ang_cadera = calcular_angulo(hombro_izq, cadera_izq, rodilla_izq)`
+
+9. MAPA DE FUNCIONES
+   - `PROCESADORES` es un diccionario que asocia cada nombre de ejercicio con su función correspondiente.
+   - Esto permite llamar a `PROCESADORES[ejercicio_actual](...)` de forma dinámica.
+
+10. CONFIGURACIÓN Y APERTURA DE CÁMARA
+    - `cap = cv2.VideoCapture(0)` abre la cámara principal.
+    - Se verifica `cap.isOpened()` para asegurar que la cámara funciona.
+    - Si no se abre, el programa muestra un mensaje y termina.
+
+11. BUCLE PRINCIPAL
+    - `with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:`
+      * Inicia el modelo de pose de MediaPipe con confianza mínima.
+    - Dentro del bucle `while cap.isOpened():`:
+      a) `ret, frame = cap.read()` lee un frame de la cámara.
+      b) Si no hay frame válido, sale del bucle.
+      c) `frame = cv2.flip(frame, 1)` voltea la imagen horizontalmente.
+      d) `h, w = frame.shape[:2]` obtiene alto y ancho del frame.
+      e) Convierte la imagen BGR a RGB para MediaPipe.
+      f) Procesa la imagen con `pose.process(frame_rgb)`.
+      g) Convierte de nuevo a BGR para dibujar con OpenCV.
+
+12. PROCESAMIENTO DE LANDMARKS
+    - Si `resultados.pose_landmarks` existe:
+      * Obtiene la lista de landmarks.
+      * Dibuja el esqueleto con `mp_dibujo.draw_landmarks(...)`.
+      * Llama al procesador del ejercicio actual.
+      * Dibuja el panel con los ángulos y estados.
+      * Muestra el mensaje principal:
+        - "POSTURA CORRECTA" si todos los ángulos están bien.
+        - "CORRIGE TU POSTURA" si alguno está mal.
+
+    - Si no detecta persona:
+      * Muestra el texto "Sin persona detectada".
+
+13. MOSTRAR INSTRUCCIONES
+    - Siempre dibuja el texto con los controles disponibles en cada frame.
+
+14. MOSTRAR VENTANA
+    - `cv2.imshow("Corrector de Postura - Calistenia", frame)` muestra la imagen.
+
+15. LECTURA DE TECLAS
+    - `tecla = cv2.waitKey(10) & 0xFF` espera 10 ms.
+    - Si se presiona `q`, rompe el bucle y cierra.
+    - Si se presiona `1`, `2`, `3` o `4`, cambia `ejercicio_actual`.
+
+16. CIERRE
+    - `cap.release()` libera la cámara.
+    - `cv2.destroyAllWindows()` cierra las ventanas de OpenCV.
+    - Imprime "Sesión terminada.".
+
+
+OBSERVACIONES IMPORTANTES
+========================
+
+- El programa depende de la detección de landmarks de MediaPipe para calcular ángulos.
+- Si la persona no está claramente visible, es posible que no detecte la pose.
+- En `procesar_plancha`, el cálculo de `ang_tobillo` usa el mismo punto dos veces, lo que puede devolver un valor inválido o 0. Esto probablemente es un error lógico en el código original.
+- El color verde indica que el ángulo está dentro del rango correcto; el color rojo indica que está fuera del rango.
+- El ejercicio actual se puede cambiar sin reiniciar el programa.
