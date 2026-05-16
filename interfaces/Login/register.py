@@ -4,21 +4,31 @@ from PyQt5.QtGui import QPixmap, QIcon, QGuiApplication
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QSize
 import sys
+import os
 
 #cargar diseño
+class Login(QMainWindow):
+    def __init__(self):
+        super(Login, self).__init__()
+        ui_path = os.path.join(os.path.dirname(__file__),"login.ui")
+        loadUi(ui_path, self)
+        #ocultar contraseña(ininicio)
+        self.password.setEchoMode(QLineEdit.Password)
+
+#cargar ui de login
 class Register(QMainWindow):
     def __init__(self):
         super(Register, self).__init__()
-        loadUi('register.ui', self)
-        #ocultar contraseña(ininicio)
+        ui_path2 = os.path.join(os.path.dirname(__file__), "register.ui")
+        loadUi(ui_path2, self)
         self.password.setEchoMode(QLineEdit.Password)
         
 
 #Mostrar logos de ventana 
-        self.minimize_bt.setIcon(QIcon("images/minimize.png"))
-        self.normal_bt.setIcon(QIcon("images/minimize_2.png"))
-        self.maximize_bt.setIcon(QIcon("images/maximize.png"))
-        self.close_bt.setIcon(QIcon("images/exit.png"))
+        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))
+        self.normal_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize_2.png")))
+        self.maximize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/maximize.png")))
+        self.close_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/exit.png")))
 
 #Boton Max-Min
         self.normal_bt.hide()
@@ -35,6 +45,9 @@ class Register(QMainWindow):
         QLineEdit.Normal if checked else QLineEdit.Password
     )
 )
+        #Abrir ventana de login al presionar "inicia sesión"
+        self.login_bt.clicked.connect(self.open_login_window)
+
 #Elimimnar Barra de titulo
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowOpacity(1)
@@ -79,6 +92,13 @@ class Register(QMainWindow):
             self.showNormal()
             self.normal_bt.hide()
             self.maximize_bt.show()
+
+            #funcion para abriri ventana de login
+    def open_login_window(self):
+        self.login_window = Login()   # crea instancia de la ventana de login
+        self.login_window.show()         # muestra la ventana
+        self.close()                        # opcional: cierra la ventana de register
+        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

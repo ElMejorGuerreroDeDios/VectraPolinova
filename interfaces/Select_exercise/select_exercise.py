@@ -1,18 +1,20 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QMovie, QPixmap, QIcon
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 import sys
-
+import os
 # Cargar examples.ui
 class Examples(QMainWindow):
     def __init__(self):
         super(Examples, self).__init__()
-        loadUi('examples.ui', self)
+        ui_path = os.path.join(os.path.dirname(__file__), "examples.ui")
+        loadUi(ui_path, self)
 
     def setGif(self, ruta):
-        self.movie = QMovie(ruta)
+        gif_path = os.path.join(os.path.dirname(__file__), ruta)
+        self.movie = QMovie(gif_path)
         self.example.setMovie(self.movie)
         self.movie.start()
 
@@ -21,19 +23,20 @@ class Examples(QMainWindow):
 class SelectExercise(QMainWindow):
     def __init__(self):
         super(SelectExercise, self).__init__()
-        loadUi('select_exercise.ui', self)
+        ui_path = os.path.join(os.path.dirname(__file__), "select_exercise.ui")
+        loadUi(ui_path, self)
         
 
 #Mostrar logos de ventana 
-        self.minimize_bt.setIcon(QIcon("images/minimize.png"))
-        self.normal_bt.setIcon(QIcon("images/minimize_2.png"))
-        self.maximize_bt.setIcon(QIcon("images/maximize.png"))
-        self.close_bt.setIcon(QIcon("images/exit.png"))
+        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))
+        self.normal_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize_2.png")))
+        self.maximize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/maximize.png")))
+        self.close_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/exit.png")))
 
-        self.label.setPixmap(QPixmap("exercises/lagartijas.jpg"))
-        self.label_2.setPixmap(QPixmap("exercises/sentadillas.jpg"))
-        self.label_3.setPixmap(QPixmap("exercises/plancha.jpg"))
-        self.label_4.setPixmap(QPixmap("exercises/zancadas.jpg"))
+        self.label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/lagartijas.jpg")))
+        self.label_2.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/sentadillas.jpg")))
+        self.label_3.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/plancha.jpg")))
+        self.label_4.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/zancadas.jpg")))
 
 #Boton Max-Min
         self.normal_bt.hide()

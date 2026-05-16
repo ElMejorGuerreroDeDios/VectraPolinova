@@ -4,12 +4,14 @@ from PyQt5.QtGui import QPixmap, QIcon, QGuiApplication
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QSize
 import sys
+import os
 
 #cargar ui de register
 class Register(QMainWindow):
     def __init__(self):
         super(Register, self).__init__()
-        loadUi('register.ui', self)
+        ui_path = os.path.join(os.path.dirname(__file__),"register.ui")
+        loadUi(ui_path, self)
         #ocultar contraseña(ininicio)
         self.password.setEchoMode(QLineEdit.Password)
 
@@ -17,20 +19,21 @@ class Register(QMainWindow):
 class Login(QMainWindow):
     def __init__(self):
         super(Login, self).__init__()
-        loadUi('login.ui', self)
-        
+        ui_path2 = os.path.join(os.path.dirname(__file__), "login.ui")
+        loadUi(ui_path2, self)       
 #ocultar contraseña(ininicio)
         self.password.setEchoMode(QLineEdit.Password)
         
 #Mostrar imagen de perfil de usuario
-        self.user_logo.setPixmap(QPixmap("images/user.png"))
+        self.user_logo.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"images/user.png")))
         self.user_logo.setScaledContents(True)
 
 #Mostrar logos de ventana 
-        self.minimize_bt.setIcon(QIcon("images/minimize.png"))
-        self.minimize_bt_2.setIcon(QIcon("images/minimize_2.png"))
-        self.maximize_bt.setIcon(QIcon("images/maximize.png"))
-        self.close_bt.setIcon(QIcon("images/exit.png"))
+        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))
+        self.minimize_bt_2.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize_2.png")))
+        self.maximize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/maximize.png")))
+        self.close_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/exit.png")))
+
 #Boton Max-Min
         self.minimize_bt_2.hide()
         self.click_Posicion = None
