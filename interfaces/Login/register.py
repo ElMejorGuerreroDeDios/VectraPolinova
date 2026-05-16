@@ -10,7 +10,7 @@ import os
 class Login(QMainWindow):
     def __init__(self):
         super(Login, self).__init__()
-        ui_path = os.path.join(os.path.dirname(__file__),"login.ui")
+        ui_path = os.path.join(os.path.dirname(__file__),"login.ui") #Esto busca el archivo utilizando rutas relativas
         loadUi(ui_path, self)
         #ocultar contraseña(ininicio)
         self.password.setEchoMode(QLineEdit.Password)
@@ -25,7 +25,7 @@ class Register(QMainWindow):
         
 
 #Mostrar logos de ventana 
-        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))
+        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png"))) #Esto busca el archivo utilizando rutas relativas
         self.normal_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize_2.png")))
         self.maximize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/maximize.png")))
         self.close_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/exit.png")))

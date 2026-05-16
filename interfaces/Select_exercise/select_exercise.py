@@ -9,7 +9,7 @@ import os
 class Examples(QMainWindow):
     def __init__(self):
         super(Examples, self).__init__()
-        ui_path = os.path.join(os.path.dirname(__file__), "examples.ui")
+        ui_path = os.path.join(os.path.dirname(__file__), "examples.ui") #Esto busca el archivo utilizando rutas relativas 
         loadUi(ui_path, self)
 
     def setGif(self, ruta):
@@ -28,12 +28,12 @@ class SelectExercise(QMainWindow):
         
 
 #Mostrar logos de ventana 
-        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))
+        self.minimize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize.png")))#Esto busca el archivo utilizando rutas relativas
         self.normal_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/minimize_2.png")))
         self.maximize_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/maximize.png")))
         self.close_bt.setIcon(QIcon(os.path.join(os.path.dirname(__file__), "images/exit.png")))
 
-        self.label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/lagartijas.jpg")))
+        self.label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/lagartijas.jpg")))#Esto busca el archivo utilizando rutas relativas
         self.label_2.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/sentadillas.jpg")))
         self.label_3.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/plancha.jpg")))
         self.label_4.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__),"exercises/zancadas.jpg")))
