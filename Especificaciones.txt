@@ -1,0 +1,4 @@
+Los guiones --- 
+representan los signos de comentarios anteriores en los archivos modificados
+
+Tambien agregue la palabra "comentario" despues de los guiones en ciertas partes 
