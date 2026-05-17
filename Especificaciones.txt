@@ -2,3 +2,6 @@ Los guiones ---
 representan los signos de comentarios anteriores en los archivos modificados
 
 Tambien agregue la palabra "comentario" despues de los guiones en ciertas partes 
+
+El codigo hecho por Yoari y Daniel esta comentado completo en bloque con los simbolos """ al inicio y al final, por eso cambie 
+las comillas de comentario por guiones (---)
