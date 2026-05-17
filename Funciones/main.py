@@ -1,4 +1,22 @@
+import sys
+import os
+from PyQt5.QtWidgets import QApplication
+
+# Agregamos la ruta del módulo de interfaces para que Python lo lea correctamente
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../interfaces/Select_exercise')))
+from select_exercise import SelectExercise
+
+def main():
+    app = QApplication(sys.argv)
+    menu_principal = SelectExercise()
+    menu_principal.show()
+    sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
+
 """
+---comentario
 CORRECTOR DE POSTURA
 
 Controles de teclado:
@@ -7,7 +25,7 @@ Controles de teclado:
     3  ->  Plancha
     4  ->  Zancada
     Q  ->  Salir
-"""
+---comentario
 
 import cv2
 import mediapipe as mp
@@ -53,7 +71,7 @@ COLOR_AZUL   = (200, 120, 0)
 
 # Funciones de dibujo
 def dibujar_etiqueta(frame, texto, pos, color_fondo, color_texto=COLOR_BLANCO):
-    """Dibuja un texto con fondo de color sólido."""
+    ---Dibuja un texto con fondo de color sólido.---
     x, y = pos
     (ancho_txt, alto_txt), _ = cv2.getTextSize(texto, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
     cv2.rectangle(frame, (x, y - alto_txt - 8), (x + ancho_txt + 8, y + 4), color_fondo, -1)
@@ -61,7 +79,7 @@ def dibujar_etiqueta(frame, texto, pos, color_fondo, color_texto=COLOR_BLANCO):
 
 
 def dibujar_angulo_en_punto(frame, angulo, punto, color):
-    """Muestra el valor del ángulo flotando cerca de la articulación."""
+    ---Muestra el valor del ángulo flotando cerca de la articulación.---
     cv2.putText(
         frame,
         f"{angulo}°",
@@ -72,7 +90,7 @@ def dibujar_angulo_en_punto(frame, angulo, punto, color):
 
 
 def dibujar_panel(frame, estados, ejercicio):
-    """Dibuja el panel lateral con los ángulos y sus estados"""
+    ---Dibuja el panel lateral con los ángulos y sus estados---
     cv2.rectangle(frame, (0, 0), (310, 40 + len(estados) * 35), COLOR_GRIS, -1)
     dibujar_etiqueta(frame, f"Ejercicio: {ejercicio}", (10, 30), COLOR_AZUL)
     for i, (nombre, angulo, estado) in enumerate(estados):
@@ -81,7 +99,7 @@ def dibujar_panel(frame, estados, ejercicio):
 
 
 def dibujar_instrucciones(frame, h):
-    """Muestra los controles de teclado en la esquina inferior izquierda"""
+    ---Muestra los controles de teclado en la esquina inferior izquierda---
     instrucciones = ["1=Sentadilla", "2=Lagartija", "3=Plancha", "4=Zancada", "Q=Salir"]
     for i, txt in enumerate(instrucciones):
         cv2.putText(frame, txt, (10, h - 20 - (len(instrucciones) - 1 - i) * 22),
@@ -91,11 +109,11 @@ def dibujar_instrucciones(frame, h):
 
 # Funciones de procesamiento por ejercicio
 def procesar_sentadilla(frame, landmarks, w, h):
-    """
+    ---comentario
     Evalua: angulo de rodilla (cadera→rodilla→tobillo)
             angulo de cadera  (hombro→cadera→rodilla)
     Correcto al bajar: rodilla ~90°, cadera 70°–110°
-    """
+    ---comentario
     rangos = EJERCICIOS["Sentadilla"]
 
     cadera  = obtener_punto(landmarks, 23, w, h)
@@ -122,11 +140,11 @@ def procesar_sentadilla(frame, landmarks, w, h):
 
 
 def procesar_lagartija(frame, landmarks, w, h):
-    """
+    ---comentario
     Evalua: angulo de codo   (hombro→codo→muñeca)
             angulo de hombro  (cadera→hombro→codo)
     Al bajar: codo ~90°, hombro 50°–90° (brazos no muy abiertos)
-    """
+    ---comentario
     rangos = EJERCICIOS["Lagartija"]
 
     hombro = obtener_punto(landmarks, 11, w, h)
@@ -153,11 +171,11 @@ def procesar_lagartija(frame, landmarks, w, h):
 
 
 def procesar_plancha(frame, landmarks, w, h):
-    """
+    ---comentario
     Evalúa: ángulo de cadera  (hombro→cadera→rodilla)
             ángulo de tobillo (rodilla→tobillo→pie)
     Cuerpo recto: cadera 160°–180° (sin hundir ni elevar)
-    """
+    ---comentario
     rangos = EJERCICIOS["Plancha"]
 
     hombro  = obtener_punto(landmarks, 11, w, h)
@@ -184,12 +202,12 @@ def procesar_plancha(frame, landmarks, w, h):
 
 
 def procesar_zancada(frame, landmarks, w, h):
-    """
+    ---comentario
     Evalua: rodilla delantera (pierna izquierda): cadera→rodilla→tobillo
             rodilla trasera   (pierna derecha):   cadera→rodilla→tobillo
             cadera: hombro→cadera→rodilla (torso erguido, ~180°)
     Al bajar: ambas rodillas ~90°, torso vertical
-    """
+    ---comentario
     rangos = EJERCICIOS["Zancada"]
 
     # Pierna izquierda
@@ -319,3 +337,4 @@ with mp_pose.Pose(
 cap.release()
 cv2.destroyAllWindows()
 print("Sesión terminada.")
+"""

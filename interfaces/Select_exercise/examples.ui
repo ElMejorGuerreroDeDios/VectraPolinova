@@ -357,7 +357,7 @@ background-color: rgb(170, 85, 255);
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="start_bt">
+              <widget class="QPushButton" name="comenzar_bt">
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
