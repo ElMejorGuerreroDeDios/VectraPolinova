@@ -18,6 +18,7 @@ class Examples(QMainWindow):
         super(Examples, self).__init__()
         loadUi(UI_PATH, self)
         self.nombre_ejercicio = nombre_ejercicio
+        self.setMinimumSize(400, 300)#Establecer tamaño minimo de la ventana
 
         # Ajuste de recursos usando la carpeta local 'images'
         self.minimize_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/minimize.png")))
@@ -49,8 +50,13 @@ class Examples(QMainWindow):
         # ruta_gif ya vendrá resuelta correctamente desde la selección
         self.movie = QMovie(ruta_gif)
         self.example.setMovie(self.movie)
-        self.movie.setScaledSize(self.example.size())
         self.movie.start()
+
+        # Escalar el GIF al QLabel
+        self.example.setScaledContents(True)
+
+        # Ajustar el tamaño de la ventana al tamaño del GIF
+        self.resize(self.movie.frameRect().size())
 
     def iniciar_analisis(self):
         self.close()
