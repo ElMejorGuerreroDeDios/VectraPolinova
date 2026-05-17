@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>651</height>
+    <width>933</width>
+    <height>844</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -125,7 +125,7 @@ background-color: rgb(170, 85, 255);
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../interfaz_PN/Select_excercise/images/interface_buttons.qrc">
+             <iconset>
               <normaloff>:/images/minimize.png</normaloff>:/images/minimize.png</iconset>
             </property>
             <property name="iconSize">
@@ -148,7 +148,7 @@ background-color: rgb(170, 85, 255);
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../interfaz_PN/Select_excercise/images/interface_buttons.qrc">
+             <iconset>
               <normaloff>:/images/minimize_2.png</normaloff>:/images/minimize_2.png</iconset>
             </property>
             <property name="iconSize">
@@ -171,7 +171,7 @@ background-color: rgb(170, 85, 255);
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../interfaz_PN/Select_excercise/images/interface_buttons.qrc">
+             <iconset>
               <normaloff>:/images/maximize.png</normaloff>:/images/maximize.png</iconset>
             </property>
             <property name="iconSize">
@@ -194,7 +194,7 @@ background-color: rgb(170, 85, 255);
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../interfaz_PN/Select_excercise/images/interface_buttons.qrc">
+             <iconset>
               <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
             </property>
             <property name="iconSize">
@@ -242,6 +242,7 @@ background-color: rgb(59, 0, 89);
 }
 QPushButton:hover{
 background-color: rgb(119, 0, 179);
+cursor: pointer;
 }
 QPushButton:pressed{
 background-color: rgb(170, 85, 255);
@@ -352,6 +353,9 @@ background-color: rgb(170, 85, 255);
               <height>23</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string>Lagartijas</string>
             </property>
@@ -370,6 +374,9 @@ background-color: rgb(170, 85, 255);
               <width>287</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="text">
              <string>Sentadillas</string>
@@ -459,6 +466,9 @@ background-color: rgb(170, 85, 255);
               <height>23</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string>Plancha</string>
             </property>
@@ -478,6 +488,9 @@ background-color: rgb(170, 85, 255);
               <height>23</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string>Zancadas</string>
             </property>
@@ -493,7 +506,7 @@ background-color: rgb(170, 85, 255);
   </widget>
  </widget>
  <resources>
-  <include location="../../../interfaz_PN/Select_excercise/images/interface_buttons.qrc"/>
+  <include location="exercises/exercises.qrc"/>
   <include location="exercises/exercises.qrc"/>
  </resources>
  <connections/>
