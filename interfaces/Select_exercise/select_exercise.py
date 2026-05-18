@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 from PyQt5.QtWidgets import QMainWindow, QApplication
-=======
+
 import os
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication
