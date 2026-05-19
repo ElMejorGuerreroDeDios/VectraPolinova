@@ -64,7 +64,7 @@ class Examples(QMainWindow):
 
     def control_normal_bt(self):
         self.showNormal()
-        self.normal_bt.hide()
+        self.normal_bt.hide() 
         self.maximize_bt.show()
 
     def control_maximize_bt(self):
