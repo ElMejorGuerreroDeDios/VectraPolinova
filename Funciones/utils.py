@@ -14,7 +14,7 @@ COLOR_AZUL   = (200, 120, 0)
 
 EJERCICIOS = {
     "Sentadilla": {
-        "rodilla": {"min": 60,  "max": 100},
+        "rodilla": {"min": 63,  "max": 100},
         "cadera":  {"min": 45,  "max": 100},
     },
     "Lagartija": {
@@ -26,9 +26,9 @@ EJERCICIOS = {
         "tobillo": {"min": 0,  "max": 100},
     },
     "Zancada": {
-        "rodilla_delantera": {"min": 85,  "max": 100},
-        "rodilla_trasera":   {"min": 85,  "max": 120},
-        "cadera":            {"min": 90, "max": 175},
+        "rodilla_delantera": {"min": 80,  "max": 100},
+        "rodilla_trasera":   {"min": 80,  "max": 120},
+        "cadera":            {"min": 140, "max": 175},
     },
 }
 
