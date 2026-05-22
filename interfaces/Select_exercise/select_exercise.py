@@ -4,11 +4,9 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QPixmap, QIcon
 
-# Configuración de rutas relativas al archivo actual
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UI_PATH = os.path.join(BASE_DIR, 'select_exercise.ui')
 
-# Importamos la clase Examples del archivo vecino local
 from examples import Examples
 
 class SelectExercise(QMainWindow):
@@ -16,13 +14,11 @@ class SelectExercise(QMainWindow):
         super(SelectExercise, self).__init__()
         loadUi(UI_PATH, self)
 
-        # Cargar iconos de la barra superior sin bordes
         self.minimize_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/minimize.png")))
         self.normal_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/minimize_2.png")))
         self.maximize_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/maximize.png")))
         self.close_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/exit.png")))
 
-        # Cargar pixmaps desde la subcarpeta local 'exercises'
         self.label.setPixmap(QPixmap(os.path.join(BASE_DIR, "exercises/lagartijas.jpg")))
         self.label_2.setPixmap(QPixmap(os.path.join(BASE_DIR, "exercises/sentadillas.jpg")))
         self.label_3.setPixmap(QPixmap(os.path.join(BASE_DIR, "exercises/plancha.jpg")))
@@ -44,19 +40,25 @@ class SelectExercise(QMainWindow):
         self.grip.resize(self.gripSize, self.gripSize)
         self.up_frame.mouseMoveEvent = self.mover_ventana
 
-        # Inicializar ventana secundaria de ejemplos
-        self.example_window = Examples()
+        # ── Ya no se crea example_window aquí ────────────────────────────────
+        self._example_window = None
 
-        # Enlace de botones enviando las rutas absolutas de los GIFs locales y su identificador
         self.exercise_bt_1.clicked.connect(lambda: self.abrir_ejemplo("exercises/lagartijas.gif", "Lagartija"))
         self.exercise_bt_2.clicked.connect(lambda: self.abrir_ejemplo("exercises/sentadilla.gif", "Sentadilla"))
         self.exercise_bt_3.clicked.connect(lambda: self.abrir_ejemplo("exercises/plancha.gif", "Plancha"))
         self.exercise_bt_4.clicked.connect(lambda: self.abrir_ejemplo("exercises/zancada.gif", "Zancada"))
 
     def abrir_ejemplo(self, path_relativo_gif, nombre_ejercicio):
+        # ── Cerrar y destruir la ventana anterior si existe ───────────────────
+        if self._example_window is not None:
+            self._example_window.close()
+            self._example_window = None
+
+        # ── Crear siempre una instancia nueva y fresca ────────────────────────
         ruta_absoluta_gif = os.path.join(BASE_DIR, path_relativo_gif)
-        self.example_window.setGif(ruta_absoluta_gif, nombre_ejercicio)
-        self.example_window.show()
+        self._example_window = Examples(nombre_ejercicio)
+        self._example_window.setGif(ruta_absoluta_gif, nombre_ejercicio)
+        self._example_window.show()
 
     def control_normal_bt(self):
         self.showNormal()

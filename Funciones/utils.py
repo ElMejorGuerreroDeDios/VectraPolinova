@@ -153,15 +153,28 @@ PROCESADORES = {
 
 def abrir_camara_mediapipe(ejercicio_inicial):
     ejercicio_actual = ejercicio_inicial
+    
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         return
+        
+    # === CONFIGURACIÓN DE LA VENTANA (Agrega estas dos líneas) ===
+    # 1. Permite que la ventana sea redimensionable por el sistema operativo
+    cv2.namedWindow("Corrector de Postura - Calistenia", cv2.WINDOW_NORMAL)
+    # 2. Fuerza a que mantenga la proporción (Aspect Ratio) para no deformar tu cara/cuerpo
+    cv2.setWindowProperty("Corrector de Postura - Calistenia", cv2.WND_PROP_ASPECT_RATIO, cv2.WINDOW_KEEPRATIO)
+    # =============================================================
+
     with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret: break
+            
             frame = cv2.flip(frame, 1)
             h, w = frame.shape[:2]
+            
+            # ... (el resto de tu código de procesamiento se queda exactamente igual) ...
+            
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_rgb.flags.writeable = False
             resultados = pose.process(frame_rgb)
@@ -183,13 +196,17 @@ def abrir_camara_mediapipe(ejercicio_inicial):
                 cv2.putText(frame, "Sin persona detectada", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (100, 100, 100), 2)
 
             dibujar_instrucciones(frame, h)
+            
+            # El nombre de la ventana debe coincidir exactamente con el de namedWindow arriba
             cv2.imshow("Corrector de Postura - Calistenia", frame)
+            
             tecla = cv2.waitKey(10) & 0xFF
             if tecla == ord('q') or tecla == ord('Q'): break
             elif tecla == ord('1'): ejercicio_actual = "Sentadilla"
             elif tecla == ord('2'): ejercicio_actual = "Lagartija"
             elif tecla == ord('3'): ejercicio_actual = "Plancha"
             elif tecla == ord('4'): ejercicio_actual = "Zancada"
+            
     cap.release()
     cv2.destroyAllWindows()
 
