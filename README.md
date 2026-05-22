@@ -49,20 +49,7 @@ VectraPolinova/
 │   
 │
 └───interfaces
-    ├───Login
-    │   │   login.py
-    │   │   login.ui
-    │   │   register.py
-    │   │   register.ui
-    │   │
-    │   └───images
-    │           exit.png
-    │           maximize.png
-    │           minimize.png
-    │           minimize_2.png
-    │           resources.qrc
-    │           user.png
-    │
+    |
     ├───Select_exercise
     │   │   examples.py
     │   │   examples.ui
