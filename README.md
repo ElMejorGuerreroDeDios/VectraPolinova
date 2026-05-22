@@ -36,38 +36,57 @@ VectraPolinova es una aplicación de escritorio construida con **PyQt5** que pro
 
 ```
 VectraPolinova/
-├── didi.txt                          # Archivo de notas
-├── interfaces/
-│   ├── Login/
-│   │   ├── login.py                  # Ventana de inicio de sesión
-│   │   ├── login.ui                  # Diseño Qt Designer
-│   │   ├── register.py               # Ventana de registro
-│   │   ├── register.ui               # Diseño Qt Designer
-│   │   └── images/
-│   │       ├── resources.qrc         # Recursos Qt
-│   │       ├── user.png              # Logo de usuario
-│   │       ├── minimize.png          # Icono minimizar
-│   │       ├── minimize_2.png         # Icono normal
-│   │       ├── maximize.png          # Icono maximizar
-│   │       └── exit.png              # Icono cerrar
-│   │
-│   └── Select_exercise/
-│       ├── select_exercise.py        # Ventana de selección
-│       ├── select_exercise.ui        # Diseño Qt Designer
-│       ├── examples.py               # Ventana de ejemplos GIF
-│       ├── examples.ui               # Diseño Qt Designer
-│       ├── exercises/
-│       │   ├── exercises.qrc         # Recursos de ejercicios
-│       │   ├── lagartijas.jpg        # Imagen ejercicio
-│       │   ├── sentadillas.jpg      # Imagen ejercicio
-│       │   ├── plancha.jpg          # Imagen ejercicio
-│       │   ├── zancadas.jpg         # Imagen ejercicio
-│       │   ├── lagartijas.gif       # Animación ejemplo
-│       │   ├── sentadilla.gif       # Animación ejemplo
-│       │   ├── plancha.gif           # Animación ejemplo
-│       │   └── zancada.gif          # Animación ejemplo
-│       └── images/
-│           └── interface_buttons.qrc # Recursos de interfaz
+ didi.txt
+│   Especificaciones.txt
+│   README.md
+│
+├───Funciones
+│   │   explicacion.txt
+│   │   explicacion_codigo.txt
+│   │   librerias.txt
+│   │   main.py
+│   │__ utils.py
+│   
+│
+└───interfaces
+    ├───Login
+    │   │   login.py
+    │   │   login.ui
+    │   │   register.py
+    │   │   register.ui
+    │   │
+    │   └───images
+    │           exit.png
+    │           maximize.png
+    │           minimize.png
+    │           minimize_2.png
+    │           resources.qrc
+    │           user.png
+    │
+    ├───Select_exercise
+    │   │   examples.py
+    │   │   examples.ui
+    │   │   select_exercise.py
+    │   │   select_exercise.ui
+    │   │
+    │   ├───exercises
+    │   │       exercises.qrc
+    │   │       lagartijas.gif
+    │   │       lagartijas.jpg
+    │   │       plancha.gif
+    │   │       plancha.jpg
+    │   │       sentadilla.gif
+    │   │       sentadillas.jpg
+    │   │       zancada.gif
+    │   │       zancadas.jpg
+    │   │
+    │   ├───images
+    │   │       exit.png
+    │   │       interface_buttons.qrc
+    │   │       maximize.png
+    │   │       minimize.png
+    │   │       minimize_2.png
+    │   │_____  user.png
 ```
 
 ## 🛠️ Requisitos
