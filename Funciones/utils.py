@@ -5,7 +5,6 @@ import mediapipe as mp
 mp_pose = mp.solutions.pose
 mp_dibujo = mp.solutions.drawing_utils
 
-# Colores BGR
 COLOR_VERDE  = (0, 200, 100)
 COLOR_ROJO   = (0, 60, 220)
 COLOR_BLANCO = (255, 255, 255)
@@ -48,8 +47,8 @@ def calcular_angulo(p1, p2, p3):
 
 def evaluar_postura(angulo, minimo, maximo):
     if minimo <= angulo <= maximo:
-        return "CORRECTA"
-    return "INCORRECTA"
+        return "POSTURA CORRECTA"
+    return "CORRIGE TU POSTURA"
 
 def dibujar_etiqueta(frame, texto, pos, color_fondo, color_texto=COLOR_BLANCO):
     x, y = pos
@@ -64,7 +63,7 @@ def dibujar_panel(frame, estados, ejercicio):
     cv2.rectangle(frame, (0, 0), (310, 40 + len(estados) * 35), COLOR_GRIS, -1)
     dibujar_etiqueta(frame, f"Ejercicio: {ejercicio}", (10, 30), COLOR_AZUL)
     for i, (nombre, angulo, estado) in enumerate(estados):
-        color = COLOR_VERDE if estado == "CORRECTA" else COLOR_ROJO
+        color = COLOR_VERDE if estado == "POSTURA CORRECTA" else COLOR_ROJO
         dibujar_etiqueta(frame, f"{nombre}: {angulo}° [{estado}]", (10, 65 + i * 35), color)
 
 def dibujar_instrucciones(frame, h):
@@ -73,7 +72,7 @@ def dibujar_instrucciones(frame, h):
         cv2.putText(frame, txt, (10, h - 20 - (len(instrucciones) - 1 - i) * 22),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.45, (150, 150, 150), 1)
 
-# --- PROCESADORES INDIVIDUALES DE EJERCICIOS ---
+
 def procesar_sentadilla(frame, landmarks, w, h):
     rangos = EJERCICIOS["Sentadilla"]
     cadera  = obtener_punto(landmarks, 23, w, h)
@@ -84,10 +83,10 @@ def procesar_sentadilla(frame, landmarks, w, h):
     ang_cadera  = calcular_angulo(hombro, cadera, rodilla)
     est_rodilla = evaluar_postura(ang_rodilla, rangos["rodilla"]["min"], rangos["rodilla"]["max"])
     est_cadera  = evaluar_postura(ang_cadera,  rangos["cadera"]["min"],  rangos["cadera"]["max"])
-    dibujar_angulo_en_punto(frame, ang_rodilla, rodilla, COLOR_VERDE if est_rodilla == "CORRECTA" else COLOR_ROJO)
-    dibujar_angulo_en_punto(frame, ang_cadera, cadera, COLOR_VERDE if est_cadera == "CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_rodilla, rodilla, COLOR_VERDE if est_rodilla == "POSTURA CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_cadera, cadera, COLOR_VERDE if est_cadera == "POSTURA CORRECTA" else COLOR_ROJO)
     estados = [("Rodilla", ang_rodilla, est_rodilla), ("Cadera",  ang_cadera,  est_cadera)]
-    return estados, all(e[2] == "CORRECTA" for e in estados)
+    return estados, all(e[2] == "POSTURA CORRECTA" for e in estados)
 
 def procesar_lagartija(frame, landmarks, w, h):
     rangos = EJERCICIOS["Lagartija"]
@@ -99,10 +98,10 @@ def procesar_lagartija(frame, landmarks, w, h):
     ang_hombro = calcular_angulo(cadera, hombro, codo)
     est_codo   = evaluar_postura(ang_codo,   rangos["codo"]["min"],   rangos["codo"]["max"])
     est_hombro = evaluar_postura(ang_hombro, rangos["hombro"]["min"], rangos["hombro"]["max"])
-    dibujar_angulo_en_punto(frame, ang_codo, codo, COLOR_VERDE if est_codo == "CORRECTA" else COLOR_ROJO)
-    dibujar_angulo_en_punto(frame, ang_hombro, hombro, COLOR_VERDE if est_hombro == "CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_codo, codo, COLOR_VERDE if est_codo == "POSTURA CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_hombro, hombro, COLOR_VERDE if est_hombro == "POSTURA CORRECTA" else COLOR_ROJO)
     estados = [("Codo",   ang_codo,   est_codo), ("Hombro", ang_hombro, est_hombro)]
-    return estados, all(e[2] == "CORRECTA" for e in estados)
+    return estados, all(e[2] == "POSTURA CORRECTA" for e in estados)
 
 def procesar_plancha(frame, landmarks, w, h):
     rangos = EJERCICIOS["Plancha"]
@@ -114,10 +113,10 @@ def procesar_plancha(frame, landmarks, w, h):
     ang_tobillo = calcular_angulo(cadera, tobillo, rodilla)
     est_cadera  = evaluar_postura(ang_cadera,  rangos["cadera"]["min"],  rangos["cadera"]["max"])
     est_tobillo = evaluar_postura(ang_tobillo, rangos["tobillo"]["min"], rangos["tobillo"]["max"])
-    dibujar_angulo_en_punto(frame, ang_cadera, cadera, COLOR_VERDE if est_cadera == "CORRECTA" else COLOR_ROJO)
-    dibujar_angulo_en_punto(frame, ang_tobillo, tobillo, COLOR_VERDE if est_tobillo == "CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_cadera, cadera, COLOR_VERDE if est_cadera == "POSTURA CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_tobillo, tobillo, COLOR_VERDE if est_tobillo == "POSTURA CORRECTA" else COLOR_ROJO)
     estados = [("Cadera",  ang_cadera,  est_cadera), ("Tobillo", ang_tobillo, est_tobillo)]
-    return estados, all(e[2] == "CORRECTA" for e in estados)
+    return estados, all(e[2] == "POSTURA CORRECTA" for e in estados)
 
 def procesar_zancada(frame, landmarks, w, h):
     rangos = EJERCICIOS["Zancada"]
@@ -134,15 +133,15 @@ def procesar_zancada(frame, landmarks, w, h):
     est_rod_del = evaluar_postura(ang_rod_del, rangos["rodilla_delantera"]["min"], rangos["rodilla_delantera"]["max"])
     est_rod_tra = evaluar_postura(ang_rod_tra, rangos["rodilla_trasera"]["min"], rangos["rodilla_trasera"]["max"])
     est_cadera  = evaluar_postura(ang_cadera,  rangos["cadera"]["min"], rangos["cadera"]["max"])
-    dibujar_angulo_en_punto(frame, ang_rod_del, rodilla_izq, COLOR_VERDE if est_rod_del == "CORRECTA" else COLOR_ROJO)
-    dibujar_angulo_en_punto(frame, ang_rod_tra, rodilla_der, COLOR_VERDE if est_rod_tra == "CORRECTA" else COLOR_ROJO)
-    dibujar_angulo_en_punto(frame, ang_cadera, cadera_izq, COLOR_VERDE if est_cadera == "CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_rod_del, rodilla_izq, COLOR_VERDE if est_rod_del == "POSTURA CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_rod_tra, rodilla_der, COLOR_VERDE if est_rod_tra == "POSTURA CORRECTA" else COLOR_ROJO)
+    dibujar_angulo_en_punto(frame, ang_cadera, cadera_izq, COLOR_VERDE if est_cadera == "POSTURA CORRECTA" else COLOR_ROJO)
     estados = [
         ("Rodilla delantera", ang_rod_del, est_rod_del),
         ("Rodilla trasera",   ang_rod_tra, est_rod_tra),
         ("Cadera (torso)",    ang_cadera,  est_cadera),
     ]
-    return estados, all(e[2] == "CORRECTA" for e in estados)
+    return estados, all(e[2] == "POSTURA CORRECTA" for e in estados)
 
 PROCESADORES = {
     "Sentadilla": procesar_sentadilla,
@@ -158,12 +157,10 @@ def abrir_camara_mediapipe(ejercicio_inicial):
     if not cap.isOpened():
         return
         
-    # === CONFIGURACIÓN DE LA VENTANA (Agrega estas dos líneas) ===
-    # 1. Permite que la ventana sea redimensionable por el sistema operativo
     cv2.namedWindow("Corrector de Postura - Calistenia", cv2.WINDOW_NORMAL)
-    # 2. Fuerza a que mantenga la proporción (Aspect Ratio) para no deformar tu cara/cuerpo
+    
     cv2.setWindowProperty("Corrector de Postura - Calistenia", cv2.WND_PROP_ASPECT_RATIO, cv2.WINDOW_KEEPRATIO)
-    # =============================================================
+    
 
     with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:
         while cap.isOpened():
@@ -173,7 +170,7 @@ def abrir_camara_mediapipe(ejercicio_inicial):
             frame = cv2.flip(frame, 1)
             h, w = frame.shape[:2]
             
-            # ... (el resto de tu código de procesamiento se queda exactamente igual) ...
+    
             
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_rgb.flags.writeable = False
@@ -197,7 +194,7 @@ def abrir_camara_mediapipe(ejercicio_inicial):
 
             dibujar_instrucciones(frame, h)
             
-            # El nombre de la ventana debe coincidir exactamente con el de namedWindow arriba
+    
             cv2.imshow("Corrector de Postura - Calistenia", frame)
             
             tecla = cv2.waitKey(10) & 0xFF

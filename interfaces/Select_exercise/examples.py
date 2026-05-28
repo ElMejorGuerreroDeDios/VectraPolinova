@@ -5,11 +5,10 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon, QMovie
 
-# Configuración de rutas relativas al archivo actual
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UI_PATH = os.path.join(BASE_DIR, 'examples.ui')
 
-# Importamos el procesador de cámara ubicado en la raíz (subiendo dos niveles)
 sys.path.append(os.path.abspath(os.path.join(BASE_DIR, '../../')))
 from utils import abrir_camara_mediapipe
 
@@ -18,9 +17,8 @@ class Examples(QMainWindow):
         super(Examples, self).__init__()
         loadUi(UI_PATH, self)
         self.nombre_ejercicio = nombre_ejercicio
-        self.setMinimumSize(400, 300)#Establecer tamaño minimo de la ventana
+        self.setMinimumSize(400, 300)
 
-        # Ajuste de recursos usando la carpeta local 'images'
         self.minimize_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/minimize.png")))
         self.normal_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/minimize_2.png")))
         self.maximize_bt.setIcon(QIcon(os.path.join(BASE_DIR, "images/maximize.png")))
@@ -47,15 +45,13 @@ class Examples(QMainWindow):
 
     def setGif(self, ruta_gif, nombre_ejercicio):
         self.nombre_ejercicio = nombre_ejercicio
-        # ruta_gif ya vendrá resuelta correctamente desde la selección
+        
         self.movie = QMovie(ruta_gif)
         self.example.setMovie(self.movie)
         self.movie.start()
 
-        # Escalar el GIF al QLabel
         self.example.setScaledContents(True)
 
-        # Ajustar el tamaño de la ventana al tamaño del GIF
         self.resize(self.movie.frameRect().size())
 
     def iniciar_analisis(self):

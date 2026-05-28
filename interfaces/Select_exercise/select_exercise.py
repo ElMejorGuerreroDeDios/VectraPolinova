@@ -40,7 +40,6 @@ class SelectExercise(QMainWindow):
         self.grip.resize(self.gripSize, self.gripSize)
         self.up_frame.mouseMoveEvent = self.mover_ventana
 
-        # ── Ya no se crea example_window aquí ────────────────────────────────
         self._example_window = None
 
         self.exercise_bt_1.clicked.connect(lambda: self.abrir_ejemplo("exercises/lagartijas.gif", "Lagartija"))
@@ -49,12 +48,11 @@ class SelectExercise(QMainWindow):
         self.exercise_bt_4.clicked.connect(lambda: self.abrir_ejemplo("exercises/zancada.gif", "Zancada"))
 
     def abrir_ejemplo(self, path_relativo_gif, nombre_ejercicio):
-        # ── Cerrar y destruir la ventana anterior si existe ───────────────────
+
         if self._example_window is not None:
             self._example_window.close()
             self._example_window = None
 
-        # ── Crear siempre una instancia nueva y fresca ────────────────────────
         ruta_absoluta_gif = os.path.join(BASE_DIR, path_relativo_gif)
         self._example_window = Examples(nombre_ejercicio)
         self._example_window.setGif(ruta_absoluta_gif, nombre_ejercicio)
